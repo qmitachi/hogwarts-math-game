@@ -639,15 +639,20 @@
     else wl.innerHTML='<span style="color:#60e890">No mistakes — Outstanding! ⚡</span>';
 
     // ── Coin reward ──
-    const reward = COIN_REWARD[currentLevel] || 0;
-    if(correctCount === TOTAL_Q && reward > 0) {
+    const fullReward = COIN_REWARD[currentLevel] || 0;
+    // Ravenclaw bonus: 1 coin for 8+ correct even if not perfect
+    const partialReward = (currentLevel==='medium' && correctCount >= 8 && correctCount < TOTAL_Q) ? 1 : 0;
+    const reward = correctCount === TOTAL_Q ? fullReward : partialReward;
+    const perfect = correctCount === TOTAL_Q;
+    if(reward > 0) {
       addCoins(reward);
       updateCoinDisplay();
       const coinEmojis = reward===1?'🪙':reward===2?'🪙🪙':reward===3?'🪙🪙🪙':'🪙🪙🪙🪙';
       const lvlName = currentLevel==='easy'?'Gryffindor':currentLevel==='medium'?'Ravenclaw':currentLevel==='hard'?'Slytherin':'Hufflepuff';
       document.getElementById('cp-coins-earned').textContent = coinEmojis;
-      document.getElementById('cp-msg').textContent =
-        `Perfect score on ${lvlName}! You earned ${reward} coin${reward>1?'s':''}!`;
+      document.getElementById('cp-msg').textContent = perfect
+        ? `Perfect score on ${lvlName}! You earned ${reward} coin${reward>1?'s':''}!`
+        : `${correctCount}/10 on ${lvlName} — well done! You earned 1 coin!`;
       document.getElementById('cp-total').textContent =
         `Mia\'s total: ${getCoins()} coin${getCoins()!==1?'s':''}`;
       spawnParticles(80);
