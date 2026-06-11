@@ -586,7 +586,7 @@
     answered=true; $('sub-btn').disabled=true;
     wrongs.push({q:$('question-text').textContent,correct:currentAnswer});
     setFeedback(false,`Time\'s up! ⚡  The answer was ${currentAnswer}`);
-    streak=0; setTimeout(nextOrEnd,1800);
+    streak=0; setTimeout(nextOrEnd,800);
   }
 
   function checkAnswer() {
@@ -610,7 +610,7 @@
     }
     $('score-display').textContent=score;
     $('streak-display').textContent=streak;
-    setTimeout(nextOrEnd,1500);
+    setTimeout(nextOrEnd,600);
   }
 
   function setFeedback(good,msg) {
@@ -666,7 +666,7 @@
         `Mia\'s total: ${getCoins()} coin${getCoins()!==1?'s':''}`;
       spawnParticles(80);
       // Show overlay after brief delay
-      setTimeout(()=>{ document.getElementById('coin-overlay').classList.add('visible'); }, 600);
+      setTimeout(()=>{ document.getElementById('coin-overlay').classList.add('visible'); }, 300);
     } else {
       show('result'); spawnParticles(55);
     }
