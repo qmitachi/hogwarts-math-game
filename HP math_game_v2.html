@@ -651,6 +651,7 @@
     if (currentLevel==='medium' && correctCount >= 8 && correctCount < TOTAL_Q) partialReward = 1;
     if (currentLevel==='hard'   && correctCount === 8) partialReward = 1;
     if (currentLevel==='hard'   && correctCount === 9) partialReward = 2;
+    if (currentLevel==='mixed'  && correctCount === 8) partialReward = 2;
     const reward = correctCount === TOTAL_Q ? fullReward : partialReward;
     const perfect = correctCount === TOTAL_Q;
     if(reward > 0) {
